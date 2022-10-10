@@ -2,6 +2,8 @@ package com.may.chatroom
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.example.toast.Toast
 import com.may.chatroom.application.ChatRoomApp.Companion.context
@@ -29,7 +31,9 @@ class MainActivity : AppCompatActivity() {
     private fun clickEvent() {
         binding.connect.setOnClickListener {
             Toast.info(context, "connecting..")
-            connectServer()
+            kotlin.run {
+                connectServer()
+            }
         }
         binding.send.setOnClickListener {
             val msg = binding.msgSend.text.toString()
@@ -50,8 +54,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun connectServer() {
         try {
-            socket = Socket("http://124.221.10.82/", 8084)
-            Toast.success(context, "connect success")
+            socket = Socket("124.221.10.82", 8084)
+            handler.sendEmptyMessage(8084)
+
             Log.e(TAG, "connectServer")
         } catch (e: Exception) {
             e.printStackTrace()
@@ -59,6 +64,13 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
+    private val handler: Handler = Handler(Looper.myLooper()!! ,Handler.Callback {
+        if (it.what == 8084) {
+            Toast.success(context, "connect success")
+        }
+        false
+    })
 
     companion object {
         const val TAG = "May"
