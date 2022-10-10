@@ -14,32 +14,8 @@ public class Client {
             return;
         }
 
-        new SendHelper(socket.getOutputStream(), "kehu").start();;
-        new ReceiveHelper(socket.getInputStream(), "client").start();;
-
-        // final DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-        // new Thread(new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         try {
-        //             getMessage(inputStream);
-        //         } catch (IOException e) {
-        //             System.out.println("获取消息失败");
-        //         }
-        //     }
-            
-        // }).start();
-        // final DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-        // new Thread(new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         try {
-        //             sendMessage(outputStream);
-        //         } catch (IOException e) {
-        //             System.out.println("信息发送失败");
-        //         }
-        //     }
-        // }).start();
+        new SendHelper(socket.getOutputStream(), "kehu").start();
+        new ReceiveHelper(socket.getInputStream(), "client").start();
     }
 
     private static void sendMessage(final DataOutputStream outputStream) throws IOException{
