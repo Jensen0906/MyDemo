@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Message
 import android.util.Log
 import com.example.toast.Toast
 import com.may.chatroom.application.ChatRoomApp.Companion.context
@@ -31,9 +32,9 @@ class MainActivity : AppCompatActivity() {
     private fun clickEvent() {
         binding.connect.setOnClickListener {
             Toast.info(context, "connecting..")
-            kotlin.run {
+            Thread{
                 connectServer()
-            }
+            }.start()
         }
         binding.send.setOnClickListener {
             val msg = binding.msgSend.text.toString()
@@ -41,9 +42,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.warning(context, String.format(getString(R.string.connect_failed), msg))
             } else if (msg.isNotEmpty()) {
                 try {
-                    val outputStream = DataOutputStream(socket!!.getOutputStream())
-                    outputStream.writeUTF(msg)
-                    Toast.success(context, String.format(getString(R.string.send_success), msg))
+                    Thread{
+                        val outputStream = DataOutputStream(socket!!.getOutputStream())
+                        outputStream.writeUTF(msg)
+                        val message = Message()
+                        message.what = 200
+                        message.obj = msg
+                        handler.sendMessage(message)
+                    }.start()
                     Log.e(TAG, "send message: $msg")
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -56,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         try {
             socket = Socket("124.221.10.82", 8084)
             handler.sendEmptyMessage(8084)
-
             Log.e(TAG, "connectServer")
         } catch (e: Exception) {
             e.printStackTrace()
@@ -66,11 +71,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val handler: Handler = Handler(Looper.myLooper()!! ,Handler.Callback {
-        if (it.what == 8084) {
-            Toast.success(context, "connect success")
+        when (it.what) {
+            200 -> Toast.success(context, String.format(getString(R.string.send_success), it.obj))
+            8084 -> Toast.success(context, "connect success")
+            else -> Toast.info(context, "over")
         }
         false
     })
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (socket != null) {
+            socket!!.close()
+        }
+    }
 
     companion object {
         const val TAG = "May"

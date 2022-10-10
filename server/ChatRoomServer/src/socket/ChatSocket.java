@@ -4,10 +4,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatSocket {
 
     private static int onlineNumber = 0;
+    private static Map<Integer, Socket> userMap = new HashMap<>(); 
 
     public static void main(String[] args) {
         System.out.println("start!!!");
@@ -21,8 +24,10 @@ public class ChatSocket {
             while (true) {
                 System.out.println("---等待客户端连接---");
                 Socket socket = serverSocket.accept();
-                System.out.println("连接：" + socket);
-                startReader(socket);
+                onlineNumber++;
+                userMap.put(onlineNumber, socket);
+                System.out.println(onlineNumber+"号连接，当前人数：" + userMap.size());
+                startReader(onlineNumber, socket);
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -30,28 +35,25 @@ public class ChatSocket {
         }
     }
 
-    private static void startReader(final Socket socket) {
+    private static void startReader(final int userId, final Socket socket) {
       //  sendMessage(socket, "-- Hello, This is server --");
         new Thread(() -> {
+            boolean isConnect = true;
             DataInputStream reader;
-            try {
-                // 获取读取流
-                reader = new DataInputStream(socket.getInputStream());
-                // BufferedReader bufferedReader = new BufferedReader(
-                //         new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-                // InputStream inputStream = socket.getInputStream();
-                System.out.println("*等待客户端输入*");
-                while (reader.readBoolean()) {
+            System.out.println("*等待客户端输入*");
+            while (true && isConnect) {
+                try {
+                    reader = new DataInputStream(socket.getInputStream());
                     String msg = reader.readUTF();
-                    // System.out.println(reader.available());
-                    // // 读取数据
-                    // byte[] bytes = new byte[reader.available()];
-                    // reader.read(bytes);
-                    // String msg = new String(bytes);
-                    System.out.println("获取到客户端的信息：" + msg);
+                    System.out.println(userId +"号：" + msg);
+                    sendMessage(socket, msg);
+                } catch (IOException e) {
+                 //   e.printStackTrace();
+                    isConnect = false;
+                    onlineNumber--;
+                    userMap.remove(userId);
+                    System.out.println(userId+"号断开连接，当前剩余人数："+userMap.size());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }).start();
     }
@@ -60,7 +62,6 @@ public class ChatSocket {
         try{
             OutputStream outputStream = socket.getOutputStream();
             outputStream.write(msg.getBytes(StandardCharsets.UTF_8));
-         //   outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("--send message failed--");
