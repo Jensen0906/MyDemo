@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ChatSocket {
+import static socket.ChatSocket.ExecuteClientThread.findClose;
 
+public class ChatSocket {
 
     private static final Map<String, Socket> clientMap = new ConcurrentHashMap<>();//存储所有的用户信息
     private static final String[] names = {"beacon", "May", "Make", "Piter"};
@@ -22,7 +22,7 @@ public class ChatSocket {
         try {
             ExecutorService executorService = Executors.newFixedThreadPool(4);//最多容纳100个客户端聊天
             ServerSocket serverSocket = new ServerSocket(8084);
-            for (int i = 0; i < 100; i++) {
+            while (num < 4) {
                 Socket client = serverSocket.accept();
                 num++;
                 System.out.println("有新的用户连接 " + client.getInetAddress() +
@@ -37,7 +37,7 @@ public class ChatSocket {
     }
 
     static class ExecuteClientThread implements Runnable {
-        private Socket client;//每一个服务器线程对应一个客户端线程
+        private final Socket client;//每一个服务器线程对应一个客户端线程
 
         ExecuteClientThread(Socket client) {
             this.client = client;
@@ -47,13 +47,10 @@ public class ChatSocket {
         public void run() {
             boolean flag = true;//防止一个客户端多次注册所做的标记位置
             try {
-                //   PrintStream PrintToCilent = new PrintStream(client.getOutputStream());//服务器向用户输出一些提示信息
-
-
                 Scanner scanner = new Scanner(client.getInputStream());
-                while (true) {
-                    userRegister(names[num], client, flag);
-                    // flag = false;
+                while (num > 0) {
+                    userRegister(names[num - 1], client, flag);
+                    flag = false;
                     groupChat(scanner, client);
                 }
 //                String str = null;//用户外部的输入信息
@@ -96,31 +93,36 @@ public class ChatSocket {
 //                        }
 //                    }
 //                }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            while (true) {
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(3 * 1000); //设置暂停的时间 5 秒
+                        findClose(clientMap.entrySet());
+                        System.out.println("find close");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
         }
 
-        private void userRegister(String userName, Socket client, boolean Flag) throws IOException {
+        private void userRegister(String userName, Socket client, boolean flag) throws IOException {
             PrintStream PrintToCilent = new PrintStream(client.getOutputStream());//服务器向用户输出一些提示信息
-            if (Flag) {
+            if (flag) {
                 System.out.println("用户" + userName + "上线了！");
-
                 clientMap.put(userName, client);//把用户加入储存map
                 System.out.println("当前群聊人数为" + (clientMap.size()) + "人");
                 PrintToCilent.println("注册成功！");
+
             } else {
                 PrintToCilent.println("警告:一个客户端只能注册一个用户！");
             }
         }
 
         private void groupChat(Scanner scanner, Socket client) throws IOException {
-            // 取出clientMap中所有客户端Socket，然后遍历一遍
-            // 分别取得每个Socket的输出流向每个客户端输出
-            PrintStream PrintToClient = new PrintStream(client.getOutputStream());//在群聊的时候服务器向客户端发送数据
-            boolean ExitFlag = false;
-
             Set<Map.Entry<String, Socket>> entrySet =
                     clientMap.entrySet();
 
@@ -130,73 +132,81 @@ public class ChatSocket {
                     userName = socketEntry.getKey();//发出信息的用户
                 }
             }
-            String msg = null;
-
+            String msg;
             while (true) {
                 if (scanner.hasNextLine()) {
                     msg = scanner.nextLine();
-                    if ("byebye".equals(msg)) {//如果用户退出了
-                        for (Map.Entry<String, Socket> stringSocketEntry : entrySet) {
-                            new PrintStream(stringSocketEntry.getValue().getOutputStream(), true)
-                                    .println("用户" + userName + "退出了群聊");//给所有人发退出群聊的消息
-                        }
-
+                    if (":q".equals(msg)) {//如果用户退出了
+                        sendAll(entrySet, userName, "用户" + userName + "退出了群聊");
                         System.out.println("用户" + userName + "下线了..");
                         clientMap.remove(userName);//将此实例从map中移除
+                        System.out.println("当前群聊人数为" + (clientMap.size()) + "人");
                         num--;
                         return;
                     }
-
-
-                    for (Map.Entry<String, Socket> stringSocketEntry : entrySet) {//遍历用户的map，获取所有用户的Socket
-                        try {
-                            Socket socket = stringSocketEntry.getValue();
-//                            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-//                            outputStream.writeUTF(userName + ": " + msg);//给每个用户发消息
-
-                            PrintStream ps = new PrintStream(socket.getOutputStream(), true);
-                            ps.println(userName + ": " + msg);//给每个用户发消息
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    sendAll(entrySet, userName, userName + ": " + msg);
+//                    for (Map.Entry<String, Socket> stringSocketEntry : entrySet) {//遍历用户的map，获取所有用户的Socket
+//                        if (stringSocketEntry.getKey().equals(userName)) continue;
+//                        try {
+//                            Socket socket = stringSocketEntry.getValue();
+//                            PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+//                            ps.println();//给每个用户发消息
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
 
                 }
             }
 
         }
 
-        private void privateChat(Scanner scanner, String privatepeopleName) throws IOException {
-
-            Socket privateUser = clientMap.get(privatepeopleName);
-            PrintStream ps = new PrintStream(privateUser.getOutputStream());//拿到私聊对象的输出流
-            PrintStream PrintToClient = new PrintStream(client.getOutputStream());//拿到当前客户端的输出流
-            String Message = null;
-            String MyName = null;
-            Set<Map.Entry<String, Socket>> set = clientMap.entrySet();
-            for (Map.Entry<String, Socket> value : set) {
-                if (value.getValue() == client) {
-                    MyName = value.getKey();
-                    break;
+        public static void findClose(Set<Map.Entry<String, Socket>> entrySet) {
+            for (Map.Entry<String, Socket> socketEntry : entrySet) {//遍历用户的map，获取所有用户的Socket
+                try {
+                    socketEntry.getValue().sendUrgentData(0);
+                } catch (IOException e) {
+                    System.out.println("用户" + socketEntry.getKey() + "下线了..");
+                    clientMap.remove(socketEntry.getKey());//将此实例从map中移除
+                    System.out.println("当前群聊人数为" + (clientMap.size()) + "人");
+                    num--;
                 }
             }
-
-            while (true) {
-                if (scanner.hasNext()) {
-                    Message = scanner.next();
-                    if ("exit".equals(Message)) {//如果用户输入了退出
-                        PrintToClient.println("已退出和" + privatepeopleName + "的私聊");
-                        ps.println("对方已经退出了私聊");
-                        break;
-                    }
-                    ps.println(MyName + "说" + Message);//如果用户没有退出，向私聊对象发送消息
-                }
-            }
-
-
         }
 
+        /**
+         * 发送全部
+         *
+         * @param entrySet
+         * @param msg
+         */
+        private void sendAll(Set<Map.Entry<String, Socket>> entrySet, String msg) {
+            sendAll(entrySet, null, msg);
+        }
 
+        /**
+         * 除了发信息的人 都发送
+         *
+         * @param entrySet
+         * @param userName
+         * @param msg
+         */
+        private void sendAll(Set<Map.Entry<String, Socket>> entrySet, String userName, String msg) {
+            for (Map.Entry<String, Socket> socketEntry : entrySet) {//遍历用户的map，获取所有用户的Socket
+                if (socketEntry.getKey().equals(userName)) {
+                    continue;
+                }
+                findClose(entrySet);
+                try {
+                    Socket socket = socketEntry.getValue();
+                    PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                    ps.println(format.format(new Date()) + "  " + msg);//给每个用户发消息
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
 

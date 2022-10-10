@@ -1,19 +1,12 @@
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class Client {
     public static void main(String[] args) throws IOException {
 
         Socket socket = new Socket("127.0.0.1", 8084);
-        SocketHelper.ExcuteServerInPut excuteServerInPut = new SocketHelper.ExcuteServerInPut(socket);
-        SocketHelper.ExcuteServerOutPut excuteServerOutPut = new SocketHelper.ExcuteServerOutPut(socket);
-        new Thread(excuteServerInPut).start();
-        new Thread(excuteServerOutPut).start();
+        new SocketHelper.ExecuteServerInPut(socket).start();
+        new SocketHelper.ExecuteServerOutPut(socket).start();
     }
 //    private static boolean close = false;
 //

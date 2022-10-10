@@ -4,10 +4,10 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class SocketHelper {
-    static class ExcuteServerInPut implements Runnable{//接收服务器的数据
-        private Socket ToServer;
+    static class ExecuteServerInPut extends Thread implements Runnable{//接收服务器的数据
+        private final Socket ToServer;
 
-        ExcuteServerInPut(Socket ToServer){
+        ExecuteServerInPut(Socket ToServer){
             this.ToServer = ToServer;
         }
 
@@ -26,10 +26,10 @@ public class SocketHelper {
         }
     }
 
-    static class ExcuteServerOutPut implements Runnable{//向服务器发送数据
+    static class ExecuteServerOutPut extends Thread implements Runnable{//向服务器发送数据
 
-        private Socket socket;
-        ExcuteServerOutPut(Socket Socket){
+        private final Socket socket;
+        ExecuteServerOutPut(Socket Socket){
             this.socket = Socket;
         }
 
