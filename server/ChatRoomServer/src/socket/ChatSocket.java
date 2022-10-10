@@ -3,9 +3,7 @@ package socket;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.http.WebSocket;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
 
 public class ChatSocket {
 
@@ -39,17 +37,17 @@ public class ChatSocket {
             try {
                 // 获取读取流
                 reader = new DataInputStream(socket.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-                InputStream inputStream = socket.getInputStream();
+                // BufferedReader bufferedReader = new BufferedReader(
+                //         new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+                // InputStream inputStream = socket.getInputStream();
                 System.out.println("*等待客户端输入*");
                 while (reader.readBoolean()) {
-                   // reader.readUTF();
-                    System.out.println(reader.available());
-                    // 读取数据
-                    byte[] bytes = new byte[8];
-                    reader.read(bytes);
-                    String msg = new String(bytes);
+                    String msg = reader.readUTF();
+                    // System.out.println(reader.available());
+                    // // 读取数据
+                    // byte[] bytes = new byte[reader.available()];
+                    // reader.read(bytes);
+                    // String msg = new String(bytes);
                     System.out.println("获取到客户端的信息：" + msg);
                 }
             } catch (IOException e) {

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">聊天室</string>
+    <string name="connect">连接</string>
+    <string name="send">发送</string>
+    <string name="send_success">发送信息：%1$s 成功</string>
+    <string name="connect_failed">未成功连接服务</string>
+</resources>
