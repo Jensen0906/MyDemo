@@ -32,7 +32,7 @@ public class ReceiveHelper extends Thread{
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 

@@ -15,7 +15,7 @@ public class Client {
         }
 
         new SendHelper(socket.getOutputStream(), "kehu").start();
-        new ReceiveHelper(socket.getInputStream(), "client").start();
+        new ReceiveHelper(socket.getInputStream()).start();
     }
 
     private static void sendMessage(final DataOutputStream outputStream) throws IOException{

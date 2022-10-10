@@ -6,11 +6,9 @@ import java.time.format.DateTimeFormatter;
 public class ReceiveHelper extends Thread{
 
     private InputStream inputStream;
-    private String type;
 
-    public ReceiveHelper(InputStream inputStream,String type) {
+    public ReceiveHelper(InputStream inputStream) {
         this.inputStream=inputStream;
-        this.type=type;
     }
 
     public void run() {
@@ -20,10 +18,8 @@ public class ReceiveHelper extends Thread{
             while (true){
                 if (((length=inputStream.read(bytes))>1)){
                     String s = new String(bytes, 0, length);
-                    LocalDateTime nowLocalDate = LocalDateTime.now();
-                    String time = nowLocalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    System.out.println("     "+time+"       "+type+" : "+s);
-                    System.out.println("____________________________________________");
+                    System.out.println(" : "+s);
+                    System.out.println("----------------------------");
                 }
             }
         } catch (IOException e) {
