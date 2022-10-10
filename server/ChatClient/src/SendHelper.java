@@ -8,13 +8,12 @@ public class SendHelper extends Thread{
 
     public SendHelper(OutputStream outputStream, String message) {
         System.out.println(message);
-        System.out.println("============================");
         this.outputStream=outputStream;
     }
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        String msg = scanner.next();
+        String msg = scanner.nextLine();
         while(!msg.equals(":q")){
             try {
                 outputStream.write(msg.getBytes());
@@ -22,7 +21,7 @@ public class SendHelper extends Thread{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            msg = scanner.next();
+            msg = scanner.nextLine();
         }
         scanner.close();
     }
