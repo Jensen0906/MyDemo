@@ -1,12 +1,51 @@
+import entity.HeartBeatPack;
+
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Client {
+
     public static void main(String[] args) throws IOException {
 
         Socket socket = new Socket("127.0.0.1", 8084);
-        new SocketHelper.ExecuteServerInPut(socket).start();
-        new SocketHelper.ExecuteServerOutPut(socket).start();
+        System.out.println("keepAlive is "+ socket.getKeepAlive());
+        Thread in = new SocketHelper.ExecuteServerInPut(socket);
+        Thread out = new SocketHelper.ExecuteServerOutPut(socket);
+        in.start();
+        out.start();
+        new KeepSocketAlive(socket).start();
+    }
+
+    static class KeepSocketAlive extends Thread implements Runnable {
+
+        private final Socket socket;
+
+        KeepSocketAlive(Socket socket) {
+            this.socket = socket;
+        }
+        @Override
+        public void run() {
+            while (!this.isInterrupted()) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    new Throwable("sleep error").printStackTrace();
+                }
+                try {
+                    socket.sendUrgentData(0);
+                } catch (IOException e) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                    System.out.println("socket has been closed    " + dateFormat.format(new Date()));
+                    this.interrupt();
+                    System.exit(0);
+                }
+
+            }
+        }
     }
 //    private static boolean close = false;
 //

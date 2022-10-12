@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 public class SocketHelper {
     static class ExecuteServerInPut extends Thread implements Runnable{//接收服务器的数据
-        private final Socket ToServer;
+        private final Socket socket;
 
         ExecuteServerInPut(Socket ToServer){
-            this.ToServer = ToServer;
+            this.socket = ToServer;
         }
 
         @Override
         public void run() {
             try {
-                Scanner scanner = new Scanner(ToServer.getInputStream());
+                Scanner scanner = new Scanner(socket.getInputStream());
                 while (scanner.hasNext()){
                     System.out.println(scanner.nextLine());
                 }
                 scanner.close();
-                ToServer.close();
+                socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
