@@ -11,7 +11,7 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
 
-        Socket socket = new Socket("127.0.0.1", 8084);
+        Socket socket = new Socket("124.221.10.82", 8084);
         System.out.println("keepAlive is "+ socket.getKeepAlive());
         Thread in = new SocketHelper.ExecuteServerInPut(socket);
         Thread out = new SocketHelper.ExecuteServerOutPut(socket);
@@ -29,9 +29,10 @@ public class Client {
         }
         @Override
         public void run() {
+            int i = 0;
             while (!this.isInterrupted()) {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     new Throwable("sleep error").printStackTrace();
                 }

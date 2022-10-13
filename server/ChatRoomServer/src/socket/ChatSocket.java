@@ -112,7 +112,7 @@ public class ChatSocket {
                         return;
                     }
                     System.out.println(msg + "    " +format.format(new Date()));
-                  //  sendAll(entrySet, userName, userName + ": " + msg);
+                    sendAll(entrySet, userName, userName + ": " + msg);
 
                 }
             }
