@@ -1,13 +1,14 @@
 package com.may.mvvm_demo.entity
 
-class User{
-    var account: String = ""
-    var pwd: String = ""
+import androidx.databinding.ObservableField
 
-    constructor(account: String, pwd: String) {
-        this.account = account
-        this.pwd = pwd
-    }
+class User {
+    var account: ObservableField<String> = ObservableField()
+    var pwd: ObservableField<String> = ObservableField()
 
     constructor()
+    constructor(account: String, pwd: String) {
+        this.account = ObservableField(account)
+        this.pwd = ObservableField(pwd)
+    }
 }
