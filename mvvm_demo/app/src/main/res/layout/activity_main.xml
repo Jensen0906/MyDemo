@@ -49,16 +49,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@{user.account}" />
+            android:text="@{user.account}"
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/tv_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@{user.pwd}" />
+            android:text="@{user.pwd}"
+            android:layout_marginTop="10dp" />
 
         <Button
             android:id="@+id/btn_login"

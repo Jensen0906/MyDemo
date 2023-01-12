@@ -1,8 +1,6 @@
 package com.may.mvvm_demo.entity
 
-import androidx.databinding.BaseObservable
-
-class User : BaseObservable{
+class User{
     var account: String = ""
     var pwd: String = ""
 
