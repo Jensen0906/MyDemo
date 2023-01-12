@@ -54,6 +54,7 @@ public class ChatSocket {
             System.out.println(" ---- server closed ---- ");
         } catch (Exception e) {
             e.printStackTrace();
+            new Throwable("hello").printStackTrace();
         }
 
     }
