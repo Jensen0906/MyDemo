@@ -23,18 +23,17 @@ class MainActivity : AppCompatActivity() {
             val account = dataBinding.etAccount.text?.toString()!!
             val pwd = dataBinding.etPwd.text?.toString()!!
             mainViewModel.getUser().value = User(account, pwd)
-
-
-            /*  单向绑定
-        val dataBinding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        mainViewModel.getUser().observe(this) { dataBinding.user = it }
-        dataBinding.btnLogin.setOnClickListener {
-            val account = dataBinding.etAccount.text?.toString()!!
-            val pwd = dataBinding.etPwd.text?.toString()!!
-            mainViewModel.getUser().value = User(account, pwd)
-        }*/
         }
+        /*  单向绑定
+    val dataBinding =
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+    mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+    mainViewModel.getUser().observe(this) { dataBinding.user = it }
+    dataBinding.btnLogin.setOnClickListener {
+        val account = dataBinding.etAccount.text?.toString()!!
+        val pwd = dataBinding.etPwd.text?.toString()!!
+        mainViewModel.getUser().value = User(account, pwd)
+    }*/
+
     }
 }
