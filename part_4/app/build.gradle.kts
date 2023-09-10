@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.part_3"
+    namespace = "com.example.part_4"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.part_3"
+        applicationId = "com.example.part_4"
         minSdk = 31
         targetSdk = 33
         versionCode = 1
@@ -50,4 +50,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 }
