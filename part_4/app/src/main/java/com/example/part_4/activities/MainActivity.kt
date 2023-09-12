@@ -1,11 +1,11 @@
-package com.example.part_4
+package com.example.part_4.activities
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.part_4.MainManager
 import com.example.part_4.databinding.ActivityMainBinding
 import com.example.part_4.viewmodels.MainViewModel
 
@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "  OVER!! ")
                 binding.showTime.text = "倒计时结束"
             }
+        }
+        binding.showTime.setOnClickListener{
+            startActivity(Intent(this, TeamActivity::class.java))
         }
     }
 }

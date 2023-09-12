@@ -13,5 +13,7 @@ class MainViewModel : ViewModel() {
 
     fun setResult(showLong: Long) {
         result.value = showLong
+        time = showLong.times(1000)
     }
+
 }

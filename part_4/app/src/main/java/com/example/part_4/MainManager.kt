@@ -10,7 +10,7 @@ import com.example.part_4.viewmodels.MainViewModel
 class MainManager(mainViewModel: MainViewModel) : LifecycleEventObserver {
     private val TAG = "MainManager"
 
-    private var countDownTimer = object : CountDownTimer(mainViewModel.time, 1000) {
+    private var countDownTimer: CountDownTimer? = object : CountDownTimer(mainViewModel.time, 1000) {
         override fun onTick(timeAfter: Long) {
             Log.d(TAG, "倒计时 --- ${timeAfter / 1000}s")
             mainViewModel.setResult(timeAfter / 1000)
@@ -26,8 +26,11 @@ class MainManager(mainViewModel: MainViewModel) : LifecycleEventObserver {
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         Log.d(TAG, "onStateChanged: $event")
         when (event) {
-            Lifecycle.Event.ON_START -> countDownTimer.start()
-            Lifecycle.Event.ON_PAUSE -> countDownTimer.cancel()
+            Lifecycle.Event.ON_START -> countDownTimer?.start()
+            Lifecycle.Event.ON_DESTROY -> {
+                countDownTimer?.cancel()
+                countDownTimer = null
+            }
             else -> {}
         }
     }
