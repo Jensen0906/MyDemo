@@ -2,11 +2,10 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
         <variable
             name="user"
-            type="com.example.part_6.entity.User" />
+            type="com.example.part_6.entity.UserBind" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,6 +47,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_username"
                 android:hint="Text user name"
+                android:text="@={user.name}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +64,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_id"
                 android:hint="Text user id"
+                android:text="@={user.id}"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

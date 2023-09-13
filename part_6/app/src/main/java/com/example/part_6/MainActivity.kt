@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.part_6.databinding.ActivityMainBinding
 import com.example.part_6.entity.User
+import com.example.part_6.entity.UserBind
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,15 +14,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.submitInfo.setOnClickListener {
+    //    binding.submitInfo.setOnClickListener {
             val user = getUserInfo()
             binding.user = user
-        }
+    //    }
     }
 
-    private fun getUserInfo(): User {
+    private fun getUserInfo(): UserBind {
         val name = binding.etUsername.text.toString().trim()
         val id = binding.etId.text.toString().trim()
-        return User(id, name)
+        val userBind = UserBind()
+        userBind.id = id
+        userBind.name = name
+        return userBind
     }
 }
