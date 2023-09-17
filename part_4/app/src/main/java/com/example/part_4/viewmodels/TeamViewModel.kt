@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import com.example.part_4.Team
-import com.example.part_4.TeamRes
+import com.example.part_4.TeamRespository
 
 class TeamViewModel : ViewModel() {
 
@@ -14,9 +14,12 @@ class TeamViewModel : ViewModel() {
    // val _teamData: LiveData<Team> = teamData
     val _teamData: LiveData<Int> = teamData.map {
         it.point
-   }
+    }
     private var teamIdLiveData = MutableLiveData<Int>()
 
+    fun getPoint(id: Int): LiveData<Int> {
+        return TeamRespository().getTeamPoint(id)
+    }
 
     fun setTeamData(team: Team) {
         teamData.value = team
@@ -26,7 +29,7 @@ class TeamViewModel : ViewModel() {
         teamIdLiveData.value = teamId
     }
 
-    var newScore: LiveData<Int> = teamIdLiveData.switchMap {id: Int ->
-        return@switchMap TeamRes().getTeamScore(id)
+    var newPoint: LiveData<Int> = teamIdLiveData.switchMap {id: Int ->
+        return@switchMap TeamRespository().getTeamPoint(id)
     }
 }
