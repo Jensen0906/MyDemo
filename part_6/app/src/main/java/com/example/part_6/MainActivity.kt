@@ -13,11 +13,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-    //    binding.submitInfo.setOnClickListener {
-            val user = getUserInfo()
+        binding.submitInfo.setOnClickListener {
+            val id = binding.etId.text.toString().trim()
+            val name = binding.etUsername.text.toString().trim()
+            val user = User(id, name)
             binding.user = user
-    //    }
+        }
+/*        val user = getUserInfo()
+        binding.user = user*/
     }
 
     private fun getUserInfo(): UserBind {

@@ -5,6 +5,9 @@
     <data>
         <variable
             name="user"
+            type="com.example.part_6.entity.User" />
+        <variable
+            name="userBind"
             type="com.example.part_6.entity.UserBind" />
     </data>
 
