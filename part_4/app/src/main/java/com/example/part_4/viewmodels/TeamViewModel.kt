@@ -29,7 +29,7 @@ class TeamViewModel : ViewModel() {
         teamIdLiveData.value = teamId
     }
 
-    var newPoint: LiveData<Int> = teamIdLiveData.switchMap {id: Int ->
+    val newPoint: LiveData<Int> = teamIdLiveData.switchMap {id: Int ->
         return@switchMap TeamRespository().getTeamPoint(id)
     }
 }

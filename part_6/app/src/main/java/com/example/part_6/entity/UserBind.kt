@@ -18,4 +18,8 @@ class UserBind: BaseObservable() {
             field = value
             notifyPropertyChanged(BR.id)
         }
+
+    override fun toString(): String {
+        return "{id = $id, name = $name}"
+    }
 }
