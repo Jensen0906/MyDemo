@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">part_7</string>
+    <string name="input_your_username">Input your username</string>
+    <string name="input_your_password">Input your password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="password_again">password again</string>
 </resources>

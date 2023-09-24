@@ -9,11 +9,10 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
-        maven(url = "https://jitpack.io")
         mavenCentral()
     }
 }
 
-rootProject.name = "part_7"
+rootProject.name = "part_8"
 include(":app")
  

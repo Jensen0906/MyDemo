@@ -1,16 +1,14 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "com.may.part_7"
+    namespace = "com.may.part_8"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.may.part_7"
+        applicationId = "com.may.part_8"
         minSdk = 31
         targetSdk = 33
         versionCode = 1
@@ -35,10 +33,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
@@ -50,13 +44,4 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-    implementation("androidx.room:room-runtime:2.5.2")
-    ksp("androidx.room:room-compiler:2.5.2")
-
-    implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-
-    implementation("com.github.Beacon0423.myLib:toast:v1.1.2")
 }
