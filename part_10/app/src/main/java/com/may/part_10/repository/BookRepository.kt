@@ -5,11 +5,11 @@ import com.may.part_10.base.BaseRepository
 import com.may.part_10.entity.Book
 import com.may.part_10.utils.RetrofitService
 
-class BookRepository : BaseRepository<Book>() {
+class BookRepository : BaseRepository() {
 
     private val api = RetrofitService.getApi()
 
     suspend fun loadBooks(books: MutableLiveData<ArrayList<Book>?>) {
-        executeList({ api.getAllBooks() }, books, "?", "???")
+        execute({ api.getAllBooks() }, books, "?", "???")
     }
 }

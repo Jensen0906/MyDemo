@@ -8,9 +8,9 @@ import com.may.part_10.entity.Book
 import com.may.part_10.network.ApiResult
 import java.io.IOException
 
-abstract class BaseRepository<T> {
+abstract class BaseRepository {
 
-    suspend fun execute(
+    suspend fun <T> execute(
         block: suspend () -> ApiResult<T>,
         response: MutableLiveData<T>,
         dataError: String,
@@ -28,24 +28,4 @@ abstract class BaseRepository<T> {
             Toast.error(appContext, executeError)
         }
     }
-
-    suspend fun executeList(
-        block: suspend () -> ApiResult<ArrayList<T>?>,
-        response: MutableLiveData<ArrayList<T>?>,
-        dataError: String,
-        executeError: String
-    ) {
-        try {
-            val result = block.invoke()
-            if (result.status == SUCCESS_STATUS) {
-                response.postValue(result.data)
-            } else {
-                Toast.error(appContext, dataError)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Toast.error(appContext, executeError)
-        }
-    }
-
 }
