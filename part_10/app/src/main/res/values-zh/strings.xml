@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_your_username">输入用户名</string>
+    <string name="text_your_password">输入密码</string>
+    <string name="login">登录</string>
+    <string name="rentable">可租借：</string>
+    <string name="price">价格：</string>
+</resources>

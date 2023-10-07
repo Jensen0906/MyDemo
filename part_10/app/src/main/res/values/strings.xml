@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">part_10</string>
+    <string name="text_your_username">text your username</string>
+    <string name="text_your_password">text your password</string>
+    <string name="login">Login</string>
+    <string name="rentable">Rentable:</string>
+    <string name="price">price:</string>
+</resources>
