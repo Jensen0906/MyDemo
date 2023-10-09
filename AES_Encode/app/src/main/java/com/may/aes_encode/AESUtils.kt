@@ -27,6 +27,7 @@ fun String?.AESEncode(): String {
         e.printStackTrace()
         ""
     }
+
 }
 
 fun String?.AESDecode(): String {
@@ -46,4 +47,5 @@ fun String?.AESDecode(): String {
         e.printStackTrace()
         ""
     }
+
 }
