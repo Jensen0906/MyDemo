@@ -25,6 +25,6 @@ if [ $1 == -msg ]; then
     git status .
     git add .
     git status .
-    git commit -m "${time}---${msg}"
+    git commit -m "${time}--- ${msg}"
     git push
 fi
