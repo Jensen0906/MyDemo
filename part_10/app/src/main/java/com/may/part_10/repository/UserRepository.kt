@@ -11,6 +11,10 @@ class UserRepository : BaseRepository() {
     private val api = RetrofitService.getApi()
 
     suspend fun login(user: MutableLiveData<User?>, requestBody: RequestBody) {
-        execute({ api.login(requestBody) }, user, "?", "???")
+        execute({ api.login(requestBody) }, user)
+    }
+
+    suspend fun register(user: MutableLiveData<User?>, requestBody: RequestBody) {
+        execute({ api.register(requestBody) }, user)
     }
 }

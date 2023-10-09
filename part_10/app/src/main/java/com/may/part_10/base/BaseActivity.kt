@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<T : ViewDataBinding>: AppCompatActivity() {
-    protected lateinit var binding: T
+abstract class BaseActivity<VDB : ViewDataBinding>: AppCompatActivity() {
+    protected lateinit var binding: VDB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,5 +13,5 @@ abstract class BaseActivity<T : ViewDataBinding>: AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    protected abstract fun setDataBinding() : T
+    protected abstract fun setDataBinding() : VDB
 }

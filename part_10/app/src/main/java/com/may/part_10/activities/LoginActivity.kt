@@ -20,16 +20,22 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         val user = User()
+        intent.getStringExtra("register_username").let {
+            user.username = it
+        }
         binding.user = user
         binding.btnLogin.setOnClickListener {
             Log.d(TAG, user.toString())
             userViewModel.login(user)
         }
-        userViewModel.user.observe(this) {
+        userViewModel.userLiveData.observe(this) {
             if (it == null) return@observe
             if (user.username == it.username) {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             }
+        }
+        binding.tvRegister.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
     }
 

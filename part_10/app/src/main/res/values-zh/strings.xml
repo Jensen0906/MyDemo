@@ -5,4 +5,9 @@
     <string name="login">登录</string>
     <string name="rentable">可租借：</string>
     <string name="price">价格：</string>
+    <string name="username_or_password_empty">--输入的用户名或密码为空--</string>
+    <string name="connect_server_failed">---连接服务器失败---</string>
+    <string name="noaccount_register">没有用户? 点击注册</string>
+    <string name="text_your_password_again">再次输入密码</string>
+    <string name="register">注册</string>
 </resources>

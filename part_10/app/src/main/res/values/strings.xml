@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name" translatable="false">part_10</string>
-    <string name="text_your_username">text your username</string>
-    <string name="text_your_password">text your password</string>
+    <string name="text_your_username">Text your username</string>
+    <string name="text_your_password">Text your password</string>
     <string name="login">Login</string>
     <string name="rentable">Rentable:</string>
     <string name="price">price:</string>
+    <string name="username_or_password_empty">--Username or Password input is Empty--</string>
+    <string name="connect_server_failed">---Failed to connect server---</string>
+    <string name="noaccount_register">No Account? Register</string>
+    <string name="text_your_password_again">Text your password again</string>
+    <string name="register">Register</string>
 </resources>

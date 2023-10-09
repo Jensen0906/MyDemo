@@ -10,6 +10,6 @@ class BookRepository : BaseRepository() {
     private val api = RetrofitService.getApi()
 
     suspend fun loadBooks(books: MutableLiveData<ArrayList<Book>?>) {
-        execute({ api.getAllBooks() }, books, "?", "???")
+        execute({ api.getAllBooks() }, books)
     }
 }

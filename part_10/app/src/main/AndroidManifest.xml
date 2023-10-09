@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Part_10">
         <activity
             android:name=".activities.LoginActivity"
+            android:launchMode="singleTask"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.RegisterActivity" />
     </application>
 
 </manifest>

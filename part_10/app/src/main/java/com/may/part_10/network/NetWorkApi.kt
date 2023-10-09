@@ -12,6 +12,9 @@ interface NetWorkApi {
     @POST("user/login")
     suspend fun login(@Body body: RequestBody): ApiResult<User?>
 
+    @POST("user/register")
+    suspend fun register(@Body body: RequestBody): ApiResult<User?>
+
     @GET("book/find_all_books")
     suspend fun getAllBooks(): ApiResult<ArrayList<Book>?>
 }
