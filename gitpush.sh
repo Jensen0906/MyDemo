@@ -22,6 +22,7 @@ if [ $1 == -msg ]; then
                 ;;
         esac
     done
+    time=$(date "+%y%m%d.%H.%M")
     git status .
     git add .
     git status .
