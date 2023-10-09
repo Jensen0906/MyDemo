@@ -1,7 +1,5 @@
 if [ $1 != -msg ]; then
-    echo -e "请输入正确的命令\n"
-    echo "不带参数       只提交时间"
-    echo "-msg 提交时间和自定义信息"
+    echo "请输入 -msg 提交时间和自定义信息"
     exit 1
 fi
 if [ $1 == -msg ]; then
