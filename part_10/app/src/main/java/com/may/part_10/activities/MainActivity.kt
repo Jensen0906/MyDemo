@@ -9,6 +9,10 @@ import com.may.part_10.databinding.ActivityMainBinding
 import com.may.part_10.entity.Book
 import com.may.part_10.viewmodels.BookViewModel
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 

@@ -8,6 +8,11 @@ import com.may.part_10.entity.Book
 import com.may.part_10.repository.BookRepository
 import kotlinx.coroutines.launch
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
+
 class BookViewModel : ViewModel() {
     private val TAG = "BookViewModel"
 

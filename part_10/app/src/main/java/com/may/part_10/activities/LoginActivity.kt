@@ -13,6 +13,10 @@ import com.may.part_10.databinding.ActivityLoginBinding
 import com.may.part_10.entity.User
 import com.may.part_10.viewmodels.UserViewModel
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private val TAG = "LoginActivity"

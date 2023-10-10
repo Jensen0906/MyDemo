@@ -4,6 +4,11 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.may.part_10.BR
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
+
 class User : BaseObservable() {
     var id = 0
     @get: Bindable

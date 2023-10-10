@@ -14,6 +14,11 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
+
 class UserViewModel : ViewModel() {
     private var _user = MutableLiveData<User?>()
     val userLiveData: LiveData<User?> = _user

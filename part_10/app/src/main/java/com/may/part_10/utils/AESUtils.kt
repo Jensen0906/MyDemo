@@ -6,6 +6,11 @@ import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/09
+ */
+
 private val SECRET_KEY = "Jensen0906xxm423"
 private val AES = "AES"
 private val CHARSET = Charset.forName("utf-8")

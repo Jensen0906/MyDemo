@@ -4,6 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
+
 abstract class BaseActivity<VDB : ViewDataBinding>: AppCompatActivity() {
     protected lateinit var binding: VDB
 

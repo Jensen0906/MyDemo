@@ -7,6 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.may.part_10.databinding.BooksRecyclerViewItemBinding
 import com.may.part_10.entity.Book
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/08
+ */
+
 class BooksApapter : RecyclerView.Adapter<BooksApapter.BookItemViewHolder>() {
 
     private val TAG = "BooksApapter"

@@ -1,5 +1,10 @@
 package com.may.part_10.entity
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
+
 class Book {
     var id: Int = 0
     var name: String? = null

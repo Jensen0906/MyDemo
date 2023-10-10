@@ -6,6 +6,11 @@ import com.may.part_10.entity.User
 import com.may.part_10.utils.RetrofitService
 import okhttp3.RequestBody
 
+
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
 class UserRepository : BaseRepository() {
 
     private val api = RetrofitService.getApi()

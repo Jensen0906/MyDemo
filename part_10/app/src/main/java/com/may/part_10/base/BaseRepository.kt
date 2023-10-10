@@ -8,6 +8,11 @@ import com.may.part_10.constant.NetWorkConst.SUCCESS_STATUS
 import com.may.part_10.network.ApiResult
 import java.io.IOException
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/08
+ */
+
 abstract class BaseRepository {
 
     suspend fun <T> execute(

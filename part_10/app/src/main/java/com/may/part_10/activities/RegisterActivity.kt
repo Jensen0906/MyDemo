@@ -12,6 +12,10 @@ import com.may.part_10.databinding.ActivityRegisterBinding
 import com.may.part_10.entity.User
 import com.may.part_10.viewmodels.UserViewModel
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/09
+ */
 class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
     private val TAG = "RegisterActivity"
 

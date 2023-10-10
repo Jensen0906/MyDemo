@@ -5,6 +5,11 @@ import com.may.part_10.base.BaseRepository
 import com.may.part_10.entity.Book
 import com.may.part_10.utils.RetrofitService
 
+/**
+ * @Author Jensen
+ * @Date 2023/10/07
+ */
+
 class BookRepository : BaseRepository() {
 
     private val api = RetrofitService.getApi()
