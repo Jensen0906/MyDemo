@@ -1,6 +1,6 @@
 package com.may.part_10.utils
 
-import com.may.part_10.constant.Constants.NetWorkConst
+import com.may.part_10.constant.NetWorkConst
 import com.may.part_10.network.NetWorkApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

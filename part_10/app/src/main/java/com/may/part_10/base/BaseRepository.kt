@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.toast.Toast
 import com.may.part_10.App.Companion.appContext
 import com.may.part_10.R
-import com.may.part_10.constant.Constants.NetWorkConst.SUCCESS_STATUS
+import com.may.part_10.constant.NetWorkConst.SUCCESS_STATUS
 import com.may.part_10.network.ApiResult
 import java.io.IOException
 

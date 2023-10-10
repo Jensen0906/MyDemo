@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.toast.Toast
 import com.may.part_10.base.BaseActivity
+import com.may.part_10.constant.BaseWorkConst.REGISTER_SUCCESS_NAME
+import com.may.part_10.constant.BaseWorkConst.TO_REGISTER_FOR_RESULT
 import com.may.part_10.databinding.ActivityRegisterBinding
 import com.may.part_10.entity.User
 import com.may.part_10.viewmodels.UserViewModel
@@ -29,8 +31,9 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
         userViewModel.userLiveData.observe(this) {
             Toast.success(applicationContext, "register success! --${user.username}--")
             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-            intent.putExtra("register_username", it?.username)
-            startActivity(intent)
+            intent.putExtra(REGISTER_SUCCESS_NAME, it?.username)
+            setResult(TO_REGISTER_FOR_RESULT, intent)
+            finish()
         }
     }
 

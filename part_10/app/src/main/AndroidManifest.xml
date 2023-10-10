@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Part_10">
         <activity
             android:name=".activities.LoginActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstancePerTask"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
