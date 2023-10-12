@@ -17,6 +17,8 @@ import com.may.part_10.constant.BaseWorkConst.TO_REGISTER_FOR_RESULT
 import com.may.part_10.databinding.ActivityLoginBinding
 import com.may.part_10.entity.User
 import com.may.part_10.utils.AESEncode
+import com.may.part_10.utils.changePassShow
+import com.may.part_10.utils.changeShowType
 import com.may.part_10.viewmodels.UserViewModel
 
 /**
@@ -30,69 +32,50 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var registerLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var mUser: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        val user = User()
-        binding.user = user
+        mUser = User()
+        binding.user = mUser
 
         getRegisterLauncher()
 
-        binding.password.addTextChangedListener {
-            if (it?.toString().isNullOrEmpty()) {
-                Log.d(TAG, "onCreate: change no string")
-                binding.showPassword.visibility = View.INVISIBLE
-                binding.notShowPassword.visibility = View.INVISIBLE
-            } else if (binding.password.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
-                Log.d(TAG, "onCreate: change has string need show password")
-                binding.showPassword.visibility = View.VISIBLE
-                binding.notShowPassword.visibility = View.INVISIBLE
-            } else if (binding.password.transformationMethod == PasswordTransformationMethod.getInstance()) {
-                Log.d(TAG, "onCreate: change has string need dismiss password")
-                binding.showPassword.visibility = View.INVISIBLE
-                binding.notShowPassword.visibility = View.VISIBLE
-            } else {
-                Log.d(TAG, "onCreate: just show imageview init")
-                binding.showPassword.visibility = View.INVISIBLE
-                binding.notShowPassword.visibility = View.VISIBLE
-            }
-        }
-
-        binding.btnLogin.setOnClickListener {
-            Log.d(TAG, user.toString())
-            userViewModel.login(user)
-        }
         userViewModel.userLiveData.observe(this) {
             if (it == null) return@observe
-            if (user.username == it.username) {
+            if (mUser.username == it.username) {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }
+        }
+
+        initClick()
+
+        binding.password.changeShowType(binding.showPassword, binding.notShowPassword)
+    }
+
+    /**
+     * init all click listener
+     * */
+    private fun initClick() {
+        binding.btnLogin.setOnClickListener {
+            Log.d(TAG, mUser.toString())
+            userViewModel.login(mUser)
         }
         binding.tvRegister.setOnClickListener {
             registerLauncher.launch(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
 
-        binding.showPassword.setOnClickListener {
-            Log.d(TAG, "onCreate: dismiss the password")
-            binding.password.run {
-
-                transformationMethod = PasswordTransformationMethod.getInstance()
-                if (text != null) setSelection(text!!.length)
-            }
-        }
-
-        binding.notShowPassword.setOnClickListener {
-            Log.d(TAG, "onCreate: show the password")
-            binding.password.run {
-                transformationMethod = HideReturnsTransformationMethod.getInstance()
-                if (text != null) setSelection(text!!.length)
-            }
-        }
+        binding.showPassword.changePassShow(binding.password, needShow = false)
+        binding.notShowPassword.changePassShow(password = binding.password, needShow = true)
     }
 
-
+    /**
+     * register the 'ActivityResultLauncher<Intent>' to get username
+     * if user register success
+     * */
     private fun getRegisterLauncher() {
         registerLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
@@ -104,7 +87,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                             password = "" //clear password input before
                         }
                     }
-
                     else -> {}
                 }
             }

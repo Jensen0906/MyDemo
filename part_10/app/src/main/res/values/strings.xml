@@ -5,10 +5,11 @@
     <string name="login">Login</string>
     <string name="rentable">Rentable:</string>
     <string name="price">price:</string>
-    <string name="username_or_password_empty">--Username or Password input is Empty--</string>
-    <string name="connect_server_failed">---Failed to connect server---</string>
+    <string name="username_or_password_empty">Username or Password input is Empty</string>
+    <string name="connect_server_failed">Failed to connect server</string>
     <string name="noaccount_register">No Account? Register</string>
     <string name="text_your_password_again">Text your password again</string>
     <string name="register">Register</string>
     <string name="password_digits" translatable="false">_.!@#$qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890</string>
+    <string name="twice_password_not_same">Twice Password not Same</string>
 </resources>

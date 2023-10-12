@@ -11,6 +11,7 @@ import com.may.part_10.R
 import com.may.part_10.entity.User
 import com.may.part_10.repository.UserRepository
 import com.may.part_10.utils.AESEncode
+import com.may.part_10.utils.makePassowrdEncode
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -31,26 +32,24 @@ class UserViewModel : ViewModel() {
             Toast.warning(appContext, appContext.getString(R.string.username_or_password_empty))
             return
         }
-        val userRequest = User()
-        userRequest.username = user.username
-        userRequest.password = user.password.AESEncode()
+
         val requestBody =
-            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(userRequest))
+            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(user.makePassowrdEncode()))
         viewModelScope.launch {
             repository.login(_user, requestBody)
         }
     }
 
     fun register(user: User?, pass2: String?) {
-        if (user == null || user.username.isNullOrEmpty() || user.password.isNullOrEmpty() || user.password != pass2) {
+        if (user == null || user.username.isNullOrEmpty() || user.password.isNullOrEmpty()) {
             Toast.warning(appContext, appContext.getString(R.string.username_or_password_empty))
             return
+        } else if (user.password != pass2) {
+            Toast.warning(appContext, appContext.getString(R.string.twice_password_not_same))
+            return
         }
-        val userRequest = User()
-        userRequest.username = user.username
-        userRequest.password = user.password.AESEncode()
         val requestBody =
-            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(userRequest))
+            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(user.makePassowrdEncode()))
         viewModelScope.launch {
             repository.register(_user, requestBody)
         }

@@ -1,6 +1,7 @@
 package com.may.part_10.utils
 
 import android.util.Base64
+import com.may.part_10.entity.User
 import java.nio.charset.Charset
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
@@ -32,7 +33,6 @@ fun String?.AESEncode(): String {
         e.printStackTrace()
         ""
     }
-
 }
 
 fun String?.AESDecode(): String {
@@ -52,5 +52,15 @@ fun String?.AESDecode(): String {
         e.printStackTrace()
         ""
     }
+}
 
+fun User.makePassowrdEncode(): User {
+    val user = User()
+    val data = this
+    return user.apply {
+        id = data.id
+        username = data.username
+        password = data.password.AESEncode()
+        userStatus = data.userStatus
+    }
 }

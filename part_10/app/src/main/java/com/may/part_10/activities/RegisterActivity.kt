@@ -10,6 +10,8 @@ import com.may.part_10.constant.BaseWorkConst.REGISTER_SUCCESS_NAME
 import com.may.part_10.constant.BaseWorkConst.TO_REGISTER_FOR_RESULT
 import com.may.part_10.databinding.ActivityRegisterBinding
 import com.may.part_10.entity.User
+import com.may.part_10.utils.changePassShow
+import com.may.part_10.utils.changeShowType
 import com.may.part_10.viewmodels.UserViewModel
 
 /**
@@ -39,6 +41,14 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding>() {
             setResult(TO_REGISTER_FOR_RESULT, intent)
             finish()
         }
+
+        binding.showPassword.changePassShow(binding.etPassword, needShow = false)
+        binding.showPassword2.changePassShow(binding.etPasswordAgain, needShow = false)
+        binding.notShowPassword.changePassShow(binding.etPassword, needShow = true)
+        binding.notShowPassword2.changePassShow(binding.etPasswordAgain, needShow = true)
+
+        binding.etPassword.changeShowType(binding.showPassword, binding.notShowPassword)
+        binding.etPasswordAgain.changeShowType(binding.showPassword2, binding.notShowPassword2)
     }
 
     override fun setDataBinding(): ActivityRegisterBinding {
