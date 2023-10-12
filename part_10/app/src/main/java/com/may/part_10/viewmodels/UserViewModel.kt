@@ -10,6 +10,7 @@ import com.may.part_10.App.Companion.appContext
 import com.may.part_10.R
 import com.may.part_10.entity.User
 import com.may.part_10.repository.UserRepository
+import com.may.part_10.utils.AESEncode
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -30,8 +31,11 @@ class UserViewModel : ViewModel() {
             Toast.warning(appContext, appContext.getString(R.string.username_or_password_empty))
             return
         }
+        val userRequest = User()
+        userRequest.username = user.username
+        userRequest.password = user.password.AESEncode()
         val requestBody =
-            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(user))
+            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(userRequest))
         viewModelScope.launch {
             repository.login(_user, requestBody)
         }
@@ -42,8 +46,11 @@ class UserViewModel : ViewModel() {
             Toast.warning(appContext, appContext.getString(R.string.username_or_password_empty))
             return
         }
+        val userRequest = User()
+        userRequest.username = user.username
+        userRequest.password = user.password.AESEncode()
         val requestBody =
-            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(user))
+            RequestBody.create(MediaType.parse("application/json;"), Gson().toJson(userRequest))
         viewModelScope.launch {
             repository.register(_user, requestBody)
         }

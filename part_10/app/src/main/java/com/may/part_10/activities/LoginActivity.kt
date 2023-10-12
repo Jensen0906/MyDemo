@@ -16,6 +16,7 @@ import com.may.part_10.constant.BaseWorkConst.REGISTER_SUCCESS_NAME
 import com.may.part_10.constant.BaseWorkConst.TO_REGISTER_FOR_RESULT
 import com.may.part_10.databinding.ActivityLoginBinding
 import com.may.part_10.entity.User
+import com.may.part_10.utils.AESEncode
 import com.may.part_10.viewmodels.UserViewModel
 
 /**
@@ -29,7 +30,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var registerLauncher: ActivityResultLauncher<Intent>
 
-    //  @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -25,6 +25,8 @@ class User : BaseObservable() {
         }
     var userStatus = 0
 
+
+
     override fun toString(): String {
         return "User(id=$id, username=$username, password=$password, userStatus=$userStatus)"
     }
