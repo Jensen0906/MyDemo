@@ -2,7 +2,6 @@ package com.may.part_10.utils
 
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.widget.addTextChangedListener

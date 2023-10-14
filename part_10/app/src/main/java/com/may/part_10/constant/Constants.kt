@@ -7,7 +7,7 @@ import android.text.method.PasswordTransformationMethod
  * @Date 2023/10/07
  */
 object NetWorkConst {
-    const val BASE_URL = "http://139.159.241.33:2024/"
+    const val BASE_URL = "*******"
     const val SUCCESS_STATUS = 200
 }
 
