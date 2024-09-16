@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId = "com.may.part11"
-        minSdk = 31
-        targetSdk = 33
+        minSdk = 30
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
