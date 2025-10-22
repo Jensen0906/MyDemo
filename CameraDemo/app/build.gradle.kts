@@ -5,13 +5,11 @@ plugins {
 
 android {
     namespace = "com.example.camerademo"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.camerademo"
-        minSdk = 31
+        minSdk = 30
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
